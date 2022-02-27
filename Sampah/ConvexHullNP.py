@@ -39,7 +39,7 @@ class ConvexHull:
             vertices = np.append(vertices, [int(idx_maxx)])
             for i in Hull2:
                 vertices = np.append(vertices,int(i))
-            return vertices
+            return vertices.astype(int)
 
         def getSimplices(vertices):
             simplices = np.array([[]])
@@ -53,6 +53,13 @@ class ConvexHull:
             simplices = simplices.astype(int)
             
             return simplices
+        
+        def getPoint(vertices, bucket):
+            point = np.array([])
+            for i in vertices:
+                point = np.append(point, bucket[i])
+            point = np.reshape(point, (-1, 2))
+            return point
 
         def DividePoint(idx1, idx2, si ,bucket, isLeft):
             # inisiasi matrix untuk mencari determinan
@@ -118,3 +125,4 @@ class ConvexHull:
 
         self.vertices = getVertices(bucket)
         self.simplices = getSimplices(self.vertices)
+        self.point = getPoint(self.vertices, bucket)
